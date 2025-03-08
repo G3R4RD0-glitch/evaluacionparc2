@@ -1,0 +1,67 @@
+<div class="catalogo-container">
+    <h1 class="catalogo-titulo">CATÁLOGO PIEZAS PARA CARROK</h1>
+
+    <div class="alta-libros">
+        <h4>Alta de Piezas</h4>
+        <div class="form-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Pieza</label>
+                    <input type="text" class="form-control" [(ngModel)]="carro.pieza" #pieza="ngModel" required />
+                    <div class="error-text" style="color: red;" *ngIf="pieza.invalid && pieza.touched">Campo obligatorio</div>
+                </div>
+                <div class="col-md-6">
+                    <label>Descripción</label>
+                    <input type="text" class="form-control" [(ngModel)]="carro.descripcion" #descripcion="ngModel" required />
+                    <div class="error-text" style="color: red;" *ngIf="descripcion.invalid && descripcion.touched">Campo obligatorio</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Unidades</label>
+                    <input type="number" class="form-control" [(ngModel)]="carro.unidades" #unidades="ngModel" required />
+                    <div class="error-text" style="color: red;" *ngIf="unidades.invalid && unidades.touched">Campo obligatorio</div>
+                </div>
+                <div class="col-md-6">
+                    <label>Precio $$$</label>
+                    <input type="number" class="form-control" [(ngModel)]="carro.precio" #precio="ngModel" required />
+                    <div class="error-text" style="color: red;" *ngIf="precio.invalid && precio.touched">Campo obligatorio</div>
+                </div>
+            </div>
+            <div class="botones">
+                <button class="btn btn-primary" (click)="insertarCarro()" [disabled]="!validarFormulario()">
+                    <i class="fas fa-plus"></i> Insertar
+                </button>
+                <button class="btn btn-warning" (click)="updateCarro()" [disabled]="!validarFormulario()">
+                    <i class="fas fa-edit"></i> Modificar
+                </button>
+                <button class="btn btn-danger" (click)="deleteCarro()">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h4>Listado de Piezas</h4>
+    <div class="row">
+        <div *ngIf="carros.length === 0" class="col-12 text-center">
+            <p class="no-books">No hay piezas en la base de datos.</p>
+        </div>
+        
+        <div class="col-md-4" *ngFor="let carro of carros">
+            <div class="card carro">
+                <div class="card-body">
+                    <h5 class="card-title">{{ carro.pieza }}</h5>
+                    <p class="card-text"><strong>Descripción</strong> {{ carro.descripcion }}</p>
+                    <p class="card-text"><strong>Unidades</strong> {{ carro.unidades }}</p>
+                    <p class="card-text"><strong>Precio $$$</strong> {{ carro.precio }}</p>
+                    <button class="btn btn-success" (click)="selectCarro(carro)">
+                        <i class="fas fa-bookmark"></i> Seleccionar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
