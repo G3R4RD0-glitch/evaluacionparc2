@@ -20,8 +20,8 @@ export class ProductoComponent {
   constructor(private productoService:ProductoService, @Inject(PLATFORM_ID) private platformId: Object){
     if (isPlatformBrowser(this.platformId)) {
       this.getProductos();
-    }
-  }
+    }
+  }
 
   //metodo para obtener el listado de libros
   async getProductos():Promise<void> {
