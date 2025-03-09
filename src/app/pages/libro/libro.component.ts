@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Libro } from '../../models/libro.model';
 import { LibroService } from '../../services/libro.service';
 import { FormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-libro',
@@ -16,9 +17,12 @@ export class LibroComponent {
   libros:any;
   libro = new Libro();
 
-  constructor(private libroService:LibroService){
-    this.getLibros();
+  constructor(private libroService: LibroService, @Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.getLibros();
+    }
   }
+
 
   //metodo para obtener el listado de libros
   async getLibros():Promise<void> {

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { CarroService } from '../../services/carro.service';
 import { firstValueFrom } from 'rxjs';
 import { FormsModule } from '@angular/forms'
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Carro } from '../../models/carro.model';
 
 @Component({
@@ -18,9 +18,12 @@ export class CarroComponent {
 carros: any;
 carro = new Carro();
 
-constructor(private carroService:CarroService){
-  this.getCarros();
+constructor(private carroService:CarroService, @Inject(PLATFORM_ID) private platformId: Object){
+  if (isPlatformBrowser(this.platformId)) {
+    this.getCarros();
+  }
 }
+
 
 async getCarros():Promise<void>{
   this.carros = await firstValueFrom(this.carroService.getCarros());
